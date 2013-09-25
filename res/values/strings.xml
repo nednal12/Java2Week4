@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Java2Week4</string>
+    <string name="app_name">Deal Me In</string>
+    <string name="app_name2">Deal Me In</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="selectCategory">Select a Category</string>
+    <string name="searchForDeals">Select me to search for deals!</string>
+    <string name="implicitIntent">Select me to perform an implicit intent!</string>
+    
+    <string name="enter_your_zip_code">Enter Your Zip Code</string>
+    <string name="go">Go</string>
+    <string name="enter_your_uri">content://com.bmarohnic.java2week3.collectionprovider/items</string>
+    <string name="uri">URI</string>
+    
+    <string name="launchSearchButton">Search By Zip</string>
+    <string name="launchImplicitButton">Open Web Browser</string>
+    
+    <string-array name="dealCategory">
+        <item>Restaurants</item>
+        <item>Entertainment</item>
+        <item>Beauty and Spa</item>
+        <item>Services</item>
+    </string-array>
 
 </resources>
