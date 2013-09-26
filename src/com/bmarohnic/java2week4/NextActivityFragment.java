@@ -1,6 +1,6 @@
 package com.bmarohnic.java2week4;
 
-import com.bmarohnic.java2week4.MainActivityFragment.onDealTypeButtonClicked;
+import com.bmarohnic.java2week4.MainActivityFragment.OnDealTypeButtonClicked;
 
 import android.app.Activity;
 import android.app.Fragment;

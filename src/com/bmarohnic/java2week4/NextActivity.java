@@ -2,6 +2,7 @@ package com.bmarohnic.java2week4;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,6 +16,13 @@ public class NextActivity extends Activity implements NextActivityFragment.OnGoB
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
+		{
+			finish();
+			return;
+		}
+		
 		setContentView(R.layout.act_next);
 		
 		String dealType = null;
@@ -29,7 +37,6 @@ public class NextActivity extends Activity implements NextActivityFragment.OnGoB
 		}
 		
 		NextActivityFragment fragment = (NextActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentResults);
-		
 		fragment.displayResults(dealType, dealCategory);
 		
 		
@@ -52,7 +59,7 @@ public class NextActivity extends Activity implements NextActivityFragment.OnGoB
 	    setResult(RESULT_OK, data);
 	    super.finish();
 	}
-	
+	 
 	
 	@Override
 	public void onGoButtonClicked(String dealZipCode)

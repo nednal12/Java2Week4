@@ -30,7 +30,7 @@
         <activity
             android:name="com.bmarohnic.java2week4.MainActivity"
             android:label="@string/app_name" 
-            android:configChanges="orientation">
+            >
             <intent-filter>
             </intent-filter>
         </activity>

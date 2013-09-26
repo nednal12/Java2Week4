@@ -32,7 +32,8 @@ import android.widget.Toast;
 /**
 * The Class MainActivity.
 */
-public class MainActivity extends Activity implements MainActivityFragment.onDealTypeButtonClicked {
+public class MainActivity extends Activity implements MainActivityFragment.OnDealTypeButtonClicked,
+	NextActivityFragment.OnGoButtonClicked{
 
 	
 	Boolean _connected = false;
@@ -95,7 +96,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 		if(savedInstanceState != null)
 		{
 			_context = this;
-			setContentView(R.layout.activity_main);
+			setContentView(R.layout.act_main);
 //			editText = (EditText) findViewById(R.id.searchField);
 			
 			
@@ -128,6 +129,7 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 			
 		} else
 		{
+			
 			Log.i("From onCreate", "This is running");
 			_context = this;
 			setContentView(R.layout.act_main);
@@ -147,7 +149,9 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 			SingletonClass.getInstance();
 			
 			Log.i("From onCreate", "This is running three");
+		
 		}
+		
 	}
 
 	/* (non-Javadoc)
@@ -177,13 +181,13 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 	    super.onPause();
 	    unregisterReceiver(receiver);
 	  }
-	
+	/*
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) 
 	{
 		super.onSaveInstanceState(savedInstanceState);
-		/*
-		Log.i("onSaveInstanceState", "This is being called.");
+		
+		
 //		EditText field = (EditText) findViewById(R.id.searchField);
 //		savedInstanceState.putString("searchValue", field.getText().toString());
 		
@@ -192,10 +196,10 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 		savedInstanceState.putString("uriValue", field2.getText().toString());
 		
 		listview.setAdapter(null);
-		Log.i("onSaveInstanceState", "And so is this.");
-		*/
+		
+		
 	}
-	
+	*/
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
@@ -398,6 +402,58 @@ public class MainActivity extends Activity implements MainActivityFragment.onDea
 			
 			
 			
+		
+	}
+
+	@Override
+	public void onDealTypeButtonClicked(String tempString, int tempInt) {
+		// TODO Auto-generated method stub
+		
+		NextActivityFragment fragment = (NextActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentResults);
+		
+		if(fragment != null && fragment.isInLayout())
+		{
+			fragment.displayResults(tempString, tempInt);
+		}
+		else
+		{
+			startResultActivity(tempString, tempInt);
+		}
+		
+	}
+
+	@Override
+	public void onGoButtonClicked(String dealZip) {
+		// TODO Auto-generated method stub
+		
+		String zipCode = dealZip;
+		Spinner dealSpinner = (Spinner) findViewById(R.id.dealSpinner);
+		int dealCategory = dealSpinner.getSelectedItemPosition() + 1;
+		
+		Log.i("onGoButtonClicked", "zipCode = " + zipCode);
+		Log.i("onGoButtonClicked", "dealCategory = " + dealCategory);
+		
+		// Detect network connection
+		_connected = SingletonClass.getConnectionStatus(_context);
+		
+		if(_connected == true){
+			
+			Log.i("Newwork Connection", SingletonClass.getConnectionType(_context));
+		
+			Intent intent = new Intent(this, MyService.class);
+			
+			intent.putExtra(MyService.FILENAME, "JSONData.txt");
+			intent.putExtra(MyService.URL,
+					"http://api.8coupons.com/v1/getdeals?key=67714ceb7f857482a7f3e890ae52a8730c7d60663de10661e527d93a9236c547a1c5c3d15f1cb29e6aa3430a54a2091b&zip=" 
+	        		+ zipCode + "&categoryid=" + dealCategory + "&format=json");
+			startService(intent);
+//			editText.setText("Download Commencing");
+		} else {
+//			editText.setText("Not Connected to Internet");
+			Toast.makeText(MainActivity.this,
+		              "Attempting to use saved data.",
+		              Toast.LENGTH_LONG).show();
+		}
 		
 	}
 	

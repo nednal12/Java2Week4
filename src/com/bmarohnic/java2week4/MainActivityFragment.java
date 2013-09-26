@@ -25,21 +25,21 @@ public class MainActivityFragment extends Fragment implements OnClickListener {
 	ArrayAdapter adapter;
 	Button goButton;
 	
-	public interface onDealTypeButtonClicked
+	public interface OnDealTypeButtonClicked
 	{
-		void startResultActivity(String tempString, int tempInt);
+		void onDealTypeButtonClicked(String tempString, int tempInt);
 	}
 	
-	private onDealTypeButtonClicked parentActivity;
+	private OnDealTypeButtonClicked parentActivity;
 	
 	@Override
 	public void onAttach(Activity activity) {
 		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
-		if (activity instanceof onDealTypeButtonClicked)
+		if (activity instanceof OnDealTypeButtonClicked)
 		{
-			parentActivity = (onDealTypeButtonClicked) activity;
+			parentActivity = (OnDealTypeButtonClicked) activity;
 		}
 		else
 		{
@@ -69,7 +69,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener {
 		goButton = (Button) view.findViewById(R.id.searchButton);
 		goButton.setOnClickListener(this);
 		return view;
-		
+		 
 	}
 	
 	public void onClick(View view)
@@ -79,7 +79,7 @@ public class MainActivityFragment extends Fragment implements OnClickListener {
 		int tempInt = dealSpinner.getSelectedItemPosition() + 1;
 		Log.i("onClick", "The Value Selected is " + tempString + "from position " + tempInt);
 		
-		parentActivity.startResultActivity(tempString, tempInt);
+		parentActivity.onDealTypeButtonClicked(tempString, tempInt);
 		
 	}
 	
