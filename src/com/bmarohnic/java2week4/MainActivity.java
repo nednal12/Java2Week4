@@ -32,13 +32,17 @@ import android.widget.Toast;
 /**
 * The Class MainActivity.
 */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements MainActivityFragment.onDealTypeButtonClicked {
 
-	ListView listview;
-	TextView textview;
+	
 	Boolean _connected = false;
+	
+	ListView listview;
+	/*
+	TextView textview;
 	private EditText editText;
 	private Spinner dealSpinner;
+	*/
 	Context _context;
 	ArrayList<HashMap<String, String>> myList;
 	
@@ -86,7 +90,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		ArrayAdapter adapter;
+//		ArrayAdapter adapter;
 		
 		if(savedInstanceState != null)
 		{
@@ -94,9 +98,17 @@ public class MainActivity extends Activity {
 			setContentView(R.layout.activity_main);
 //			editText = (EditText) findViewById(R.id.searchField);
 			
+			
+			
+			
+			/*
 			listview = (ListView) this.findViewById(R.id.list);
 			View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 			listview.addHeaderView(listHeader);
+			*/
+			
+			
+			
 			
 			if(savedInstanceState.getString("searchValue") != null)
 			{
@@ -118,8 +130,8 @@ public class MainActivity extends Activity {
 		{
 			Log.i("From onCreate", "This is running");
 			_context = this;
-			setContentView(R.layout.activity_main);
-			
+			setContentView(R.layout.act_main);
+			/*
 			dealSpinner = (Spinner) findViewById(R.id.dealSpinner);
 			Log.i("From onCreate", "This is running too");
 			adapter = ArrayAdapter.createFromResource(this, R.array.dealCategory, android.R.layout.simple_spinner_item);
@@ -131,7 +143,7 @@ public class MainActivity extends Activity {
 			listview = (ListView) this.findViewById(R.id.list);
 			View listHeader = this.getLayoutInflater().inflate(R.layout.list_header, null);
 			listview.addHeaderView(listHeader);
-			
+			*/
 			SingletonClass.getInstance();
 			
 			Log.i("From onCreate", "This is running three");
@@ -170,7 +182,7 @@ public class MainActivity extends Activity {
 	public void onSaveInstanceState(Bundle savedInstanceState) 
 	{
 		super.onSaveInstanceState(savedInstanceState);
-		
+		/*
 		Log.i("onSaveInstanceState", "This is being called.");
 //		EditText field = (EditText) findViewById(R.id.searchField);
 //		savedInstanceState.putString("searchValue", field.getText().toString());
@@ -181,6 +193,7 @@ public class MainActivity extends Activity {
 		
 		listview.setAdapter(null);
 		Log.i("onSaveInstanceState", "And so is this.");
+		*/
 	}
 	
 	
@@ -196,17 +209,23 @@ public class MainActivity extends Activity {
 	 */
 	public void onClick(View view)
 	{
+		/*
 		String tempString = dealSpinner.getSelectedItem().toString();
 		int tempInt = dealSpinner.getSelectedItemPosition() + 1;
 		Log.i("onClick", "The Value Selected is " + tempString + "from position " + tempInt);
 		
+		startResultActivity(tempString, tempInt);
+		*/
+	}
+	
+	public void startResultActivity(String tmpString, int tmpInt)
+	{
 		Intent nextActivity = new Intent(this, NextActivity.class);
 		
-		nextActivity.putExtra("dealType", tempString);
-		nextActivity.putExtra("dealCategory", tempInt);
+		nextActivity.putExtra("dealType", tmpString);
+		nextActivity.putExtra("dealCategory", tmpInt);
 		
 		startActivityForResult(nextActivity,0);
-		
 	}
 	
 	@Override
@@ -279,6 +298,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void onClick2(View view) {
+		/*
 		EditText field = (EditText) findViewById(R.id.uriField);
 		String tempString = field.getText().toString();
 		Log.i("Click2", tempString);
@@ -314,7 +334,7 @@ public class MainActivity extends Activity {
 			
 			listview.setAdapter(adapter);
 		}
-		
+		*/
 	}
 	
 	
@@ -370,7 +390,14 @@ public class MainActivity extends Activity {
 			SimpleAdapter adapter = new SimpleAdapter(this, myList, R.layout.list_row,
 					new String[] { "restaurant", "dealTitle", "city"}, new int[] {R.id.restaurant, R.id.dealTitle, R.id.city});
 			
+			
+			
+			
+			listview = (ListView) findViewById(R.id.list);
 			listview.setAdapter(adapter);
+			
+			
+			
 		
 	}
 	

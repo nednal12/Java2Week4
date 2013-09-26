@@ -5,21 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+ 
+public class NextActivity extends Activity implements NextActivityFragment.OnGoButtonClicked{
 
-public class NextActivity extends Activity{
-
-	TextView textView;
-	EditText editText;
+	
 	String dealZip = null;
 	int dealCategory;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_next);
+		setContentView(R.layout.act_next);
 		
 		String dealType = null;
 		
@@ -32,12 +28,15 @@ public class NextActivity extends Activity{
 			
 		}
 		
-		textView = (TextView) findViewById(R.id.dealTypeTextView);
-		textView.setText("Enter the Zip Code to find " + dealType + " in that area.");
+		NextActivityFragment fragment = (NextActivityFragment) getFragmentManager().findFragmentById(R.id.fragmentResults);
+		
+		fragment.displayResults(dealType, dealCategory);
 		
 		
 	}
 
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -55,6 +54,14 @@ public class NextActivity extends Activity{
 	}
 	
 	
+	@Override
+	public void onGoButtonClicked(String dealZipCode)
+	{
+		dealZip = dealZipCode;
+		finish();
+	}
+	
+	/*
 	public void onClick(View view)
 	{
 		editText = (EditText) findViewById(R.id.searchField);
@@ -62,4 +69,5 @@ public class NextActivity extends Activity{
 		
 		finish();
 	}
+	*/
 }
